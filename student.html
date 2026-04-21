@@ -5,6 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student</title>
     <link rel="stylesheet" href="style.css">
+
+    <style>
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+}
+
+.modal-box {
+    background: rgb(255, 255, 255);
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+
+    border-radius: 8px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.modal-text{
+color:black ;
+}
+
+.modal1 {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+}
+
+.modal-box1 {
+    background: rgb(255, 255, 255);
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+
+    border-radius: 8px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.modal-text1{
+color:black ;
+}
+
+    </style>
 </head>
 <body>
 <div class="container">
@@ -14,6 +64,21 @@
     <p id="errorMsg" class="error"></p>
     <button id="joinBtn" onclick="joinRoom()">Join</button>
     <div id="quiz"></div>
+</div>
+
+
+<div id="modal" class="modal">
+    <div class="modal-box">
+        <p class="modal-text">correct</p>
+        <button onclick="closeModal()">OK</button>
+    </div>
+</div>
+
+<div id="modal1" class="modal1">
+    <div class="modal-box1">
+        <p class="modal-text1">Wrong</p>
+        <button onclick="closeModal1()">OK</button>
+    </div>
 </div>
 <script>
 let questions = [];
@@ -95,13 +160,23 @@ function showQuestion() {
 function checkAnswer(choice) {
     if (choice === questions[current].correct_answer) {
         score++;
-        alert("Correct!");
+        document.getElementById("modal").style.display = "block";
     } else {
-        alert("Wrong!");
+        document.getElementById("modal1").style.display = "block";
     }
     current++;
     showQuestion();
 }
+
+function closeModal() {
+    document.getElementById("modal").style.display = "none";
+}
+
+function closeModal1() {
+    document.getElementById("modal1").style.display = "none";
+}
+
+
 </script>
 </body>
 </html>
