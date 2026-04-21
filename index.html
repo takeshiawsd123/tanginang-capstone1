@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+}
+
+.modal-box {
+    background: rgb(255, 255, 255);
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+
+    border-radius: 8px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.modal-text{
+color:black ;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Welcome Back</h2>
+
+    <input id="username" type="text" placeholder="Username">
+    <div style="position: relative;">
+        <input id="password" type="password" placeholder="Password">
+        <span onclick="togglePassword()" style="
+            position:absolute;
+            right:10px;
+            top:50%;
+            transform:translateY(-50%);
+            cursor:pointer;
+            font-size:14px;
+        "><i id="eyeIcon" class="fa fa-eye" style="color: black;"></i></span>
+    </div>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <button class="primary-btn" onclick="login()">Login</button>
+
+    <p>Don't have an account?</p>
+    <button class="secondary-btn" onclick="location.href='register.html'">Register</button>
+</div>
+
+
+
+
+<div id="modal" class="modal">
+    <div class="modal-box">
+        <p class="modal-text">Invalid login</p>
+        <button onclick="closeModal()">OK</button>
+    </div>
+</div>
+
+
+
+
+
+
+<script>
+
+function login() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    fetch("login.php", {
+        method: "POST",
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+    })
+    .then(res => res.text())
+    .then(data => {
+        if (data === "Success") {
+            window.location.href = "choice.html";
+        } else {
+            document.getElementById("modal").style.display = "block";
+        }
+    });
+}
+
+function closeModal() {
+    document.getElementById("modal").style.display = "none";
+}
+
+
+
+
+
+
+
+function togglePassword() {
+    const password = document.getElementById("password");
+    const icon = document.getElementById("eyeIcon");
+
+    if (password.type === "password") {
+        password.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    } else {
+        password.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+    }
+}
+
+
+</script>
+
+</body>
+</html>

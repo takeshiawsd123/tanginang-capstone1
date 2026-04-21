@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Teacher Dashboard</h2>
+
+    <h3>Create Room</h3>
+    <input id="teacherName" placeholder="Your Name">
+    <button onclick="createRoom()">Create Room</button>
+
+    <p id="roomCode"></p>
+
+    <hr style="margin:15px 0; opacity:0.3;">
+
+    <h3>Add Question</h3>
+
+    <input id="question" placeholder="Question">
+
+    <input id="a" placeholder="Choice A">
+    <input id="b" placeholder="Choice B">
+    <input id="c" placeholder="Choice C">
+    <input id="d" placeholder="Choice D">
+
+    <input id="correct" placeholder="Correct Answer (A / B / C / D)">
+
+    <button onclick="addQuestion()">Add Question</button>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Create Account</h2>
+
+    <input id="username" placeholder="Username">
+    
+    <div style="position: relative;">
+        <input id="password" type="password" placeholder="Password">
+        <span onclick="togglePassword()" style="
+            position:absolute;
+            right:10px;
+            top:50%;
+            transform:translateY(-50%);
+            cursor:pointer;
+            font-size:14px;
+        "><i id="eyeIcon" class="fa fa-eye" style="color: black;"></i></span>
+    </div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+    <p id="errorMsg" class="error"></p>
+
+    <button id="registerBtn" onclick="register()">Register</button>
+
+    <p style="margin-top:10px; font-size:14px;">
+        Already have an account?
+    </p>
+    <button onclick="location.href='index.html'">Login</button>
+</div>
+
+<script>
+function togglePassword() {
+    const pass = document.getElementById("password");
+    pass.type = pass.type === "password" ? "text" : "password";
+}
+
+function register() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    const errorMsg = document.getElementById("errorMsg");
+    const btn = document.getElementById("registerBtn");
+
+    errorMsg.textContent = "";
+
+    if (!username || !password) {
+        errorMsg.textContent = "Please fill in all fields.";
+        return;
+    }
+
+    btn.textContent = "Creating...";
+    btn.disabled = true;
+
+    fetch("register.php", {
+        method: "POST",
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+    })
+    .then(res => res.text())
+    .then(data => {
+        if (data === "Success") {
+            errorMsg.style.color = "#00ffcc";
+            errorMsg.textContent = "Account created successfully!";
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 1000);
+        } else {
+            errorMsg.textContent = data;
+        }
+
+        btn.textContent = "Register";
+        btn.disabled = false;
+    });
+}
+</script>
+
+</body>
+</html>
