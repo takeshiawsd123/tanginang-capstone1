@@ -133,4 +133,3 @@ function nextQuestion() {
     current++;
     showQuestion();
 }
-
